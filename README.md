@@ -1,8 +1,7 @@
 # Kmeans-Classification-of-Pharmaceutical-Companies
 
-
-Purpose
 The purpose of this assignment is to use k-Means for clustering.
+
 Directions
 An equities analyst is studying the pharmaceutical industry and would like your help in exploring and understanding
 the financial data collected by her firm. Her main objective is to understand the structure of the pharmaceutical
