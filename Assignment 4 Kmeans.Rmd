@@ -1,0 +1,74 @@
+---
+title: "Assignment 4 Kmeans"
+author: "Franklin Ngochi"
+date: "2023-03-19"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+
+```{r}
+library(tidyverse) #Data manipulation
+library(factoextra)#clustering and visualization
+```
+
+#Importing Dataframe
+```{r}
+Pharm<-read.csv(file="C:\\Users\\ngoch\\Downloads\\Pharmaceuticals.csv", header=TRUE, sep=",")
+colnames(Pharm)
+```
+
+#scaling the dataframe
+
+```{r}
+ScaledPharm<-scale(Pharm[, 3:11])
+distance<-get_dist(ScaledPharm)
+fviz_dist(distance)
+```
+
+#Deriving the optimal number of clusters for Kmeans clustering
+
+```{r}
+set.seed(456)
+fviz_nbclust(ScaledPharm, FUNcluster = hcut, method="silhouette")
+#the optimal number of clusters is 2 because it corresponds to the highest silhouette width
+```
+
+#Performing Kmeans clustering for k=2 (a)
+```{r}
+#Distance measure chosen for Kmeans clustering is Euclidean because the data is numerical and has been scaled to account for outliers
+k2<-kmeans(ScaledPharm, centers=2, nstart=25)#Kmeans clustering
+k2
+k2$size#Size of each cluster
+fviz_cluster(k2, data=ScaledPharm)#Visualize clusters
+```
+
+#Interprete the clusters with respect to numerical variables (b)
+```{r}
+#Cluster 1 represents companies having positive Market_Cap, ROE, ROA, Asset_Turnover and NetProfitMargin,  with negative Beta, PE-Ratio, Leverage and Revenue Growth, while Cluster 2 represents the reverse.
+
+#Ten and eleven companies are in Cluster 1 and 2 respectively
+
+#The within cluster sum of square errors are 43.30886 and 75.26049 respectively for cluster 1 and 2. This suggests that the distribution in Cluster 1 is more compact than in Cluster 2.
+
+#The overall sum of square errors is 34.1 % which is relatively low and suggests an overall compact distribution.
+```
+
+#Pattern in the cluster (c)
+
+```{r}
+Pattern <- Pharm %>% select(c(12,13,14)) %>% mutate(Cluster = k2$cluster)
+print(Pattern)
+Median_Recommendation <- ggplot(Pattern, mapping = aes(factor(Cluster), fill=Median_Recommendation)) + geom_bar(position = 'dodge') + labs(x='Clusters', y='Frequence')
+Median_Recommendation
+#There appears to be a pattern consisting of brokerages recommending a strong buy for companies in Cluster 1 and not for companies in Cluster 2. Brokerages are also tend recommend a "hold" for companies in Cluster 2 more than Cluster 1.
+```
+
+#Provide appropriate names for each cluster (d)
+```{r}
+#Cluster1 could be named LOW RISK/HIGH RETURN because although they have on average negative revenue growth, they show on average a positive market capitalization, ROE, ROA, Asset Turnover and Net Profit. They also have negative leverage, negative Beta and PE_Ratio
+#Cluster2 on the contrary is HIGH RISK/LOW RETURN because companies in this cluster portray opposite characteristics to cluster 1 companies. That is, higher Beta and PE ratio on average as well as higher leverage while running negative net profit margins, market capitalization, asset turnover etc.
+```
+
