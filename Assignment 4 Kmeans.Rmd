@@ -63,7 +63,7 @@ Pattern <- Pharm %>% select(c(12,13,14)) %>% mutate(Cluster = k2$cluster)
 print(Pattern)
 Median_Recommendation <- ggplot(Pattern, mapping = aes(factor(Cluster), fill=Median_Recommendation)) + geom_bar(position = 'dodge') + labs(x='Clusters', y='Frequence')
 Median_Recommendation
-#There appears to be a pattern consisting of brokerages recommending a strong buy for companies in Cluster 1 and not for companies in Cluster 2. Brokerages are also tend recommend a "hold" for companies in Cluster 2 more than Cluster 1.
+#There appears to be a pattern consisting of brokerages recommending a strong buy for companies in Cluster 2 and not for companies in Cluster 1. Brokerages are also tend recommend a "hold" for companies in Cluster 1 more than Cluster 2.
 ```
 
 #Provide appropriate names for each cluster (d)
