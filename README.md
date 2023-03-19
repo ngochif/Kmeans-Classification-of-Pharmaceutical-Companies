@@ -24,11 +24,15 @@ For each firm, the following variables are recorded:
   12. Stock exchange on which the firm is listed
 
 Use cluster analysis to explore and analyze the given dataset as follows:
+
 a. Use only the numerical variables (1 to 9) to cluster the 21 firms. Justify the various choices made in
 conducting the cluster analysis, such as weights for different variables, the specific clustering algorithm(s)
 used, the number of clusters formed, and so on.
+
 b. Interpret the clusters with respect to the numerical variables used in forming the clusters.
+
 c. Is there a pattern in the clusters with respect to the numerical variables (10 to 12)? (those not used in
 forming the clusters)
+
 d. Provide an appropriate name for each cluster using any or all of the variables in the dataset.
 
